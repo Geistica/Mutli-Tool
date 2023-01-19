@@ -4,6 +4,9 @@ Set-ForegroundWindow (Get-Process PowerShell).MainWindowHandle
 # Declare a variable to store debug messages
 $debugMessages = @()
 
+#Path for Icon
+$Window.Icon = "C:\Users\Schule\OneDrive - TBZ\M122\LB2\MultiTool\MultiTool\Images\icon.ico"
+
 #Functions
 # Function to add a debug message to the debug console
 function Add-DebugMessage {
@@ -45,8 +48,8 @@ Function Get-FixedDisk {
 }
 
 
-# Location of the XAML data
-$xamlFile = "C:\Users\Schule\Downloads\MultiTool-20230119T080448Z-001\MultiTool\MultiTool\MainWindow.xaml"
+# Location of the XAML data / Path
+$xamlFile = "C:\Users\Schule\OneDrive - TBZ\M122\LB2\MultiTool\MultiTool\MainWindow.xaml"
 
 #create window
 $inputXML = Get-Content $xamlFile -Raw
@@ -74,8 +77,6 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {
     }
 }
 Get-Variable var_*
-
-$Window.Icon = "D:\Programs\GDrive\School\MultiTool\MultiTool\Images\icon.ico"
 
 ####################################################################################################
 ###############################################home#################################################
