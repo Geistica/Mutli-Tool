@@ -104,7 +104,6 @@ $Timer_Tick={
 $Var_DisplayRealDate.Content= Get-Date -Format dd-MM-yyyy
 ##END OF Displays
 
-
 #START ABOUT ME___________________________________________________________________________________________#
 $Var_Aboutme.Add_Click({
 Write-Host "Initiating About Me Window"
@@ -141,6 +140,12 @@ Get-Variable var_*
 $Null = $window1.ShowDialog()
 })
 ##END ABOUT ME___________________________________________________________________________________________________#
+
+#Github Link button
+$Var_github.Add_Click({
+Start-Process "https://github.com/Geistica/Mutli-Tool"
+Write-Host "Github Link has been opened"
+})
 
 ####################################################################################################
 #########################################System Operations##########################################
@@ -190,7 +195,19 @@ Write-Host "Script mbr2gpt has ended"
 #START OF THE WINDOWS UPDATE SCRIPT__________________________________________________________________________#
 $var_btn_winupdate.Add_Click({
 Write-Host "button windows Update has been clicked"
-$var_console.Text = ""
+#Check if Module "Get-InstallModule" is installed
+$installedModules = Get-InstalledModule -Name "PSWindowsUpdate"
+if ($installedModules.Count -eq 0) {
+    [System.Windows.Forms.MessageBox]::Show("You need to install PSWindowsUpdate module before using this button. Please run 'Install-Module -Name PSWindowsUpdate -Force' in an elevated PowerShell prompt.", "Module not found", "OK", "Warning")
+}
+else {
+#Administrator Permissions check and warning
+$adminCheck = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+
+if (!$adminCheck) {
+    [System.Windows.Forms.MessageBox]::Show("You need admin permissions to use this button.", "Admin permissions required", "OK", "Warning")
+}
+else {
 # Check if updates are available
 $winupdates = Get-WindowsUpdate
 
@@ -198,6 +215,7 @@ $winupdates = Get-WindowsUpdate
 if ($winupdates) {
     if ($winupdates.Count -eq 1) {
 $answer_winupdates = [System.Windows.Forms.MessageBox]::Show("There are updates available, do you want to download and install them?", "Updates Available", [System.Windows.Forms.MessageBoxButtons]::YesNo)
+}
 #Install updates
 if ($answer_winupdates -eq [System.Windows.Forms.DialogResult]::Yes) {
     Write-Host "Updates will now be downloaded and installed."
@@ -205,10 +223,9 @@ if ($answer_winupdates -eq [System.Windows.Forms.DialogResult]::Yes) {
     $update.KBArticleIDs | % { wusa.exe /quiet /norestart /kb:$_ }
     #Restart
     shutdown /r /t 0
-#Do not install updates
+    #Do not install updates
 }} elseif ($answer_winupdates -eq [System.Windows.Forms.DialogResult]::No) {
     Write-Host "Updates will not be downloaded or installed."
- }
  }
 }
 #No Updates
@@ -216,6 +233,8 @@ else {
     Write-Host "There are currently no updates are available."
 }
 Write-Host "Script Windows Update has ended"   
+}
+}
 })
 ##END OF WINDOWS UPDATES SCRIPT______________________________________________________________________________#
 
@@ -483,8 +502,15 @@ Start-Process -FilePath "resmon.exe"
 
 #Start Print Managment
 $var_btn_printmgmt.Add_Click( {
+# Check if the Print Management Console is installed
+if (!(Test-Path "C:\Windows\System32\printmanagement.msc")) {
+    # Show message box to user
+    [System.Windows.Forms.MessageBox]::Show("You need to install the 'Print Management Console' before using this button. Please install it from the 'Control Panel' and try again.", "Print Management Console not found", "OK", "Warning")
+}
+else {
 Write-Host "Starting Print Management"
 Start-Process -FilePath "printmanagement.msc"
+}
 })
 
 #Start Event Viewer
