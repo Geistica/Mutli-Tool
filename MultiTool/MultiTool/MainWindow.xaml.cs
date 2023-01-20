@@ -49,5 +49,10 @@ namespace MultiTool
         {
 
         }
+
+        private void btn_printmgmt_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

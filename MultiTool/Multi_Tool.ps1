@@ -385,13 +385,6 @@ Write-Host "Script battery info has ended"
 })
 ##END OF THE BATTERY INFO SCRIPT__________________________________________________________________________#
 
-#START OF THE NSLOOKUP SCRIPT_____________________________________________________________________________#
-$var_btn_nslookup.Add_Click( {
-$IpAddressnslookup = [Microsoft.VisualBasic.Interaction]::InputBox("Please Input the Ip address that has to be searched:", "NSlookup")
-$var_txtResults.Text = ""
-$var_txtResults.Text = $var_txtResults.Text + "$IpAddressnslookup `n"
-})
-##END OF THE NSLOOKUP INFO SCRIPT_________________________________________________________________________#
 ####################################################################################################
 ############################################Quick Access############################################
 ####################################################################################################
