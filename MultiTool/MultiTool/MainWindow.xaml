@@ -99,7 +99,7 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <TextBox x:Name="console" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="401,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="339" Height="273" Background="Black" Foreground="White" VerticalScrollBarVisibility="Visible"/>
+                    <TextBox x:Name="console" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="401,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="339" Height="273" Background="Black" Foreground="White" VerticalScrollBarVisibility="Visible" Visibility="Hidden"/>
                     <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="200,225,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
                     <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="200,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FFB3C6D2" RadiusX="5" RadiusY="5"/>
                     <Button x:Name="btn_static_IP" Content="Create Static IP" HorizontalAlignment="Left" Margin="201,226,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
@@ -213,7 +213,7 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="338,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
                     <Rectangle HorizontalAlignment="Left" Height="32" Margin="148,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
                     <Button x:Name="btn_control" Content="Control Panel" HorizontalAlignment="Left" Margin="149,124,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
@@ -223,8 +223,8 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="338,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
-                    <Button x:Name="btn_devmgmt" Content="Device Manager" HorizontalAlignment="Left" Margin="339,125,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_devmgmt" Content="Device Manager" HorizontalAlignment="Left" Margin="351,124,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
                         </Button.BorderBrush>
@@ -234,7 +234,7 @@
                     </Button>
                     <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
                     <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
-                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="338,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
                     <Button x:Name="btn_winset" Content="Windows Settings" HorizontalAlignment="Left" Margin="549,125,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
@@ -254,7 +254,7 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="338,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
                     <Button x:Name="btn_sysconfig" Content="System Configuration" HorizontalAlignment="Left" Margin="550,186,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
@@ -272,8 +272,8 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="338,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
-                    <Button x:Name="btn_resmon" Content="Ressource Monitor" HorizontalAlignment="Left" Margin="339,66,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_resmon" Content="Ressource Monitor" HorizontalAlignment="Left" Margin="351,66,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
                         </Button.BorderBrush>
@@ -282,14 +282,6 @@
                         </Button.Background>
                     </Button>
                     <Rectangle HorizontalAlignment="Left" Height="32" Margin="148,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
-                    <Button x:Name="btn_printmgmt" Content="*Printer Managment*" HorizontalAlignment="Left" Margin="149,306,0,0" VerticalAlignment="Top" Height="30" Width="120" Click="btn_printmgmt_Click">
-                        <Button.BorderBrush>
-                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
-                        </Button.BorderBrush>
-                        <Button.Background>
-                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
-                        </Button.Background>
-                    </Button>
                     <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF99AAB5" RadiusX="5" RadiusY="5"/>
                     <Button x:Name="btn_eventview" Content="Event Viewer" HorizontalAlignment="Left" Margin="549,66,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
@@ -299,7 +291,7 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <Button x:Name="btn_services" Content="Services" HorizontalAlignment="Left" Margin="339,246,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                    <Button x:Name="btn_services" Content="Services" HorizontalAlignment="Left" Margin="351,246,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
                         </Button.BorderBrush>
@@ -315,7 +307,7 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <Button x:Name="btn_powershell" Content="Powershell" HorizontalAlignment="Left" Margin="339,186,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                    <Button x:Name="btn_powershell" Content="Powershell" HorizontalAlignment="Left" Margin="351,186,0,0" VerticalAlignment="Top" Height="30" Width="120">
                         <Button.BorderBrush>
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
                         </Button.BorderBrush>
@@ -331,7 +323,15 @@
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                         </Button.Background>
                     </Button>
-                    <Button x:Name="btn_defrag" Content="Defragment Drives" HorizontalAlignment="Left" Margin="339,306,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                    <Button x:Name="btn_defrag" Content="Defragment Drives" HorizontalAlignment="Left" Margin="351,306,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_printmgmt" Content="*Printer Management*" HorizontalAlignment="Left" Margin="149,306,0,0" VerticalAlignment="Top" Height="30" Width="121" FontSize="11">
                         <Button.BorderBrush>
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
                         </Button.BorderBrush>

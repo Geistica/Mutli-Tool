@@ -1,11 +1,16 @@
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName Microsoft.VisualBasic
-Set-ForegroundWindow (Get-Process PowerShell).MainWindowHandle
+Add-Type -AssemblyName System.Windows.Forms
 # Declare a variable to store debug messages
 $debugMessages = @()
 
-#Path for Icon
-$Window.Icon = "C:\Users\Schule\OneDrive - TBZ\M122\LB2\MultiTool\MultiTool\Images\icon.ico"
+#Choose between path variable if .ps1 or .exe 
+$fileExtension = [System.IO.Path]::GetExtension($MyInvocation.MyCommand.Name)
+if ($fileExtension -eq ".ps1") {
+    $currentScriptDirectory = Split-Path -Parent $((Get-Variable MyInvocation).Value.MyCommand.Path)
+} else {
+    $currentScriptDirectory = (Get-Location).Path
+}
 
 #Functions
 # Function to add a debug message to the debug console
@@ -47,9 +52,12 @@ Function Get-FixedDisk {
    $DiskInfo
 }
 
+#Path for Icon
+$iconPath = $currentScriptDirectory + "\MultiTool\Images\icon.ico"
+$currentScript | Add-Content -Path $currentScript -Value "# ICO $iconPath"
 
 # Location of the XAML data / Path
-$xamlFile = "C:\Users\Schule\OneDrive - TBZ\M122\LB2\MultiTool\MultiTool\MainWindow.xaml"
+$xamlFile = $currentScriptDirectory + "\MultiTool\MainWindow.xaml"
 
 #create window
 $inputXML = Get-Content $xamlFile -Raw
@@ -101,7 +109,7 @@ $Var_DisplayRealDate.Content= Get-Date -Format dd-MM-yyyy
 $Var_Aboutme.Add_Click({
 Write-Host "Initiating About Me Window"
 # Location von der XAML Datei
-$xamlFile = "C:\Users\Schule\Downloads\MultiTool-20230119T080448Z-001\MultiTool\MultiTool\AboutMe.xaml"
+$xamlFile = $currentScriptDirectory + "\MultiTool\AboutMe.xaml"
 
 #Create about me window
 $inputXML = Get-Content $xamlFile -Raw
@@ -144,6 +152,12 @@ $Var_btn_logout.Add_Click({logoff 1})
 #START OF CHANGE PASSWORD OF LOCAL USER SCRIPT___________________________________________________________________#
 $var_btn_password.Add_Click({
 Write-Host "button password change has been clicked"
+#Administrator Permissions check and warning
+$adminCheck = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+if (!$adminCheck) {
+    [System.Windows.Forms.MessageBox]::Show("You need admin permissions to use this button.", "Admin permissions required", "OK", "Warning")
+}
+else {
 $username = $env:username
 $changepassword = [Microsoft.VisualBasic.Interaction]::InputBox("Please Input New Password for this user:", "Password Changer")
     net user $username $changepassword
@@ -151,6 +165,7 @@ $changepassword = [Microsoft.VisualBasic.Interaction]::InputBox("Please Input Ne
     [System.Windows.Forms.MessageBox]::Show("No Password was set, please try again")
 } else {
     [System.Windows.Forms.MessageBox]::Show("Password has been changed")
+}
 }
 Write-Host "Script password changer has ended"   
 })
