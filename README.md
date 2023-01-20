@@ -11,8 +11,8 @@
 	- Remove Empty Folders in a specific directory
 	- Convert MBR to GPT
 	- Check for windows updates and update them
-	- Change the admin password 	**(Requires elevated script)** 
-	- Create Static IP Adress 	**(Unstable)** 
+	- Change the admin password 	(Requires elevated script)
+	- Create Static IP Adress 	(Unstable) 
 
 ## System Information:
 
@@ -20,7 +20,7 @@
 	- Dipslay Host-Name
 	- Show all disks and their sizes
 	- Show all specifications of your device
-	- Save the battery info and displays them 	**(Only works on devices that have a bettery built inside)** 
+	- Save the battery info and displays them (Only works on devices that have a bettery built inside)
 
 ## Quick Access, Allows you to open following apps:
 
@@ -36,6 +36,6 @@
 	- Registry Editor
 	- Services
 	- Task Scheduler
-	- Printer Management 	**(Only works if you have the optional features "printmanagement.msc" installed)** 
+	- Printer Management 	(Only works if you have the optional features "printmanagement.msc" installed)
 	- Defragment Drives
 	- Firewall
