@@ -52,39 +52,386 @@ Function Get-FixedDisk {
    $DiskInfo
 }
 
-#Path for Icon
-$iconPath = $currentScriptDirectory + "\MultiTool\Images\icon.ico"
-$currentScript | Add-Content -Path $currentScript -Value "# ICO $iconPath"
+#Your XAML goes here :)
+$inputXML = @"
+<Window x:Class="MultiTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiTool"
+        mc:Ignorable="d"
+        Title="Multi Tool V1.0" Height="470" Width="825" ShowInTaskbar="False" Background="#FF3D4146" Foreground="#FF36393E" MinHeight="470" MinWidth="825">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TabControl BorderBrush="#FF36393E" Background="Black">
+            <TabItem Header="Home" Margin="-2,-2,2,2" Height="20" Width="45" Background="#FF2C2F33" BorderBrush="#FF424549" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Rectangle HorizontalAlignment="Left" Height="26" Margin="593,56,0,0" Stroke="Black" VerticalAlignment="Top" Width="81" Fill="#FF424549" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="26" Margin="593,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="81" Fill="#FF424549" RadiusX="5" RadiusY="5"/>
+                    <Label Content="Current Time:" HorizontalAlignment="Left" Margin="593,25,0,0" VerticalAlignment="Top" Height="26">
+                        <Label.Background>
+                            <SolidColorBrush Color="White" Opacity="0"/>
+                        </Label.Background>
+                    </Label>
+                    <Label x:Name="DisplayRealTime" HorizontalAlignment="Left" Margin="685,25,0,0" VerticalAlignment="Top" Width="81" Background="White" Height="25"/>
+                    <Label Content="Current Date:" HorizontalAlignment="Left" Margin="593,56,0,0" VerticalAlignment="Top" Height="26">
+                        <Label.Background>
+                            <SolidColorBrush Color="White" Opacity="0"/>
+                        </Label.Background>
+                    </Label>
+                    <Label x:Name="DisplayRealDate" HorizontalAlignment="Left" Margin="685,57,0,0" VerticalAlignment="Top" Width="81" Background="White" Height="25"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="34,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="219" Width="487" Foreground="#FFCECECE" FontSize="14"><Run Text="Hey thanks a lot for using this script. "/><LineBreak/><Run Text="I will continue to write this script to be able to perform more work faster."/><LineBreak/><Run Text="Do not hesitate to report any bugs on my github."/><LineBreak/><LineBreak/><Run Text="This is my first time having created such a powershell script."/><LineBreak/><Run Text="Unfortunately the .exe requires 2 .xaml files at the moment due to complications with wpf. "/><Run Language="de-ch" Text="It also isn't currrently correctly resizeable."/><LineBreak/><Run Language="de-ch"/><Run Text="How ever I will plan on finding a solution to this in the future."/><LineBreak/><Run/><LineBreak/><Run Text="Thank you for your understand and have fun with the script :)"/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+                    <Button x:Name="Aboutme" Content="About Me" HorizontalAlignment="Left" Margin="34,257,0,0" VerticalAlignment="Top" Background="#FF36393E" Foreground="#FF949494" Width="60" Height="20" MinWidth="60" MinHeight="20"/>
+                    <Button x:Name="github" Content="Github and Features" HorizontalAlignment="Left" Margin="118,257,0,0" VerticalAlignment="Top" Background="#FF36393E" Foreground="#FF949494"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="System Operations" Background="#FF2C2F33" Margin="-2,-2,2,2" Height="20" Width="115" BorderBrush="#FF424549" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF23272A" Offset="1"/>
+                            <GradientStop Color="#FF282B30"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="50,175,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF566EB2" RadiusX="5" RadiusY="5"/>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="50,225,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="50,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF435EA0" RadiusX="5" RadiusY="5"/>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="50,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF304E8E" RadiusX="5" RadiusY="5"/>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="49,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF304E8E" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_shutdown" Content="Shutdown System" HorizontalAlignment="Left" Margin="50,26,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_restart" Content="Restart System" HorizontalAlignment="Left" Margin="51,76,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_mbr2gpt" Content="MBR2GPT" HorizontalAlignment="Left" Margin="51,176,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_password" Content="Password" HorizontalAlignment="Left" Margin="51,226,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="200,175,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF566EB2" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_winupdate" Content="*Check Win Updates*" HorizontalAlignment="Left" Margin="201,176,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <TextBox x:Name="console" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="401,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="339" Height="273" Background="Black" Foreground="White" VerticalScrollBarVisibility="Visible" Visibility="Hidden"/>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="200,225,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="200,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF435EA0" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_static_IP" Content="Create Static IP" HorizontalAlignment="Left" Margin="201,226,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="200,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF304E8E" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_safeboot" Content="Safe Boot" HorizontalAlignment="Left" Margin="201,26,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2" RenderTransformOrigin="0.496,1.29">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="32" Margin="200,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF304E8E" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_pcclean" Content="PC Clean Up" HorizontalAlignment="Left" Margin="51,126,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn__logout" Content="Log Out Current User" HorizontalAlignment="Left" Margin="201,76,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_empty_folders" Content="Remove Empty Folders" HorizontalAlignment="Left" Margin="202,127,0,0" VerticalAlignment="Top" Height="30" Width="120" Grid.ColumnSpan="2" FontSize="11">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="System Information" Margin="-3,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF23272A" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Rectangle HorizontalAlignment="Left" Height="37" Margin="603,75,0,0" Stroke="Black" VerticalAlignment="Top" Width="77" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="37" Margin="603,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="77" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="37" Margin="513,25,0,0" Stroke="Black" VerticalAlignment="Top" Width="77" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <TextBox x:Name="Testing" HorizontalAlignment="Left" Margin="187,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Height="26" IsEnabled="False">
+                        <TextBox.Background>
+                            <SolidColorBrush Color="#FF959595" Opacity="0.995"/>
+                        </TextBox.Background>
+                        <TextBox.BorderBrush>
+                            <SolidColorBrush Color="#FFABADB3" Opacity="1"/>
+                        </TextBox.BorderBrush>
+                    </TextBox>
+                    <TextBox x:Name="pcname" HorizontalAlignment="Left" Margin="187,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Height="26" IsEnabled="False" Background="#FF959595"/>
+                    <Button x:Name="btn_diskinfo" Content="Disks" HorizontalAlignment="Left" Margin="514,26,0,0" VerticalAlignment="Top" Height="35" Width="75" BorderThickness="1,1,1,0" Foreground="Black">
+                        <Button.Background>
+                            <SolidColorBrush Color="White" Opacity="0"/>
+                        </Button.Background>
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="White" Opacity="0.01"/>
+                        </Button.BorderBrush>
+                    </Button>
+                    <TextBox x:Name="txtResults" HorizontalAlignment="Left" Margin="42,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="437" Height="291" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" UndoLimit="100" Background="Black" Foreground="White"/>
+                    <Label Content="Host-IPAddress" HorizontalAlignment="Left" Margin="77,33,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label Content="Host-Name" HorizontalAlignment="Left" Margin="87,64,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Button x:Name="btn_specs" Content="Specs" HorizontalAlignment="Left" Margin="603,26,0,0" VerticalAlignment="Top" Height="35" Width="77" BorderThickness="0,0,0,0">
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_battery" Content="Battery Info" HorizontalAlignment="Left" Margin="603,75,0,0" VerticalAlignment="Top" Height="36" Width="77" Padding="-2,1,1,1" ScrollViewer.CanContentScroll="True" BorderThickness="0,0,0,0">
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Quick Access" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="148,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FFA1B5FF" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_taskmngr" Content="Task Manager" HorizontalAlignment="Left" Margin="149,66,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FF23272A" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FFA1B5FF" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="148,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF7B91D8" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_control" Content="Control Panel" HorizontalAlignment="Left" Margin="149,124,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF7B91D8" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_devmgmt" Content="Device Manager" HorizontalAlignment="Left" Margin="351,124,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,65,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FFA1B5FF" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF7B91D8" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_winset" Content="Windows Settings" HorizontalAlignment="Left" Margin="549,124,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="148,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,185,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF697FC5" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF566EB2" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_taskscheduler" Content="Task Scheduler" HorizontalAlignment="Left" Margin="550,246,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF566EB2" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_sysconfig" Content="System Configuration" HorizontalAlignment="Left" Margin="549,186,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="148,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF566EB2" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_regedit" Content="Registry Editor" HorizontalAlignment="Left" Margin="149,246,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="350,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF435EA0" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_resmon" Content="Ressource Monitor" HorizontalAlignment="Left" Margin="351,66,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="148,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF435EA0" RadiusX="5" RadiusY="5"/>
+                    <Rectangle HorizontalAlignment="Left" Height="32" Margin="548,305,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" Fill="#FF435EA0" RadiusX="5" RadiusY="5"/>
+                    <Button x:Name="btn_eventview" Content="Event Viewer" HorizontalAlignment="Left" Margin="549,66,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_services" Content="Services" HorizontalAlignment="Left" Margin="351,246,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_cmd" Content="Command Panel" HorizontalAlignment="Left" Margin="149,186,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_powershell" Content="Powershell" HorizontalAlignment="Left" Margin="351,186,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_firewall" Content="Firewall" HorizontalAlignment="Left" Margin="549,306,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_defrag" Content="Defragment Drives" HorizontalAlignment="Left" Margin="351,306,0,0" VerticalAlignment="Top" Height="30" Width="120">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btn_printmgmt" Content="*Printer Management*" HorizontalAlignment="Left" Margin="149,306,0,0" VerticalAlignment="Top" Height="30" Width="121" FontSize="11">
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
-# Location of the XAML data / Path
-$xamlFile = $currentScriptDirectory + "\MultiTool\MainWindow.xaml"
+    </Grid>
+</Window>
+"@ 
 
-#create window
-$inputXML = Get-Content $xamlFile -Raw
-$inputXML = $inputXML -replace 'mc:Ignorable="d"', '' -replace "x:N", 'N' -replace '^<Win.*', '<Window'
-[XML]$XAML = $inputXML
+$inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N' -replace '^<Win.*', '<Window'
+[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+[xml]$XAML = $inputXML
+#Read XAML
 
-#read of XAML
-$reader = (New-Object System.Xml.XmlNodeReader $xaml)
-try {
-    $window = [Windows.Markup.XamlReader]::Load( $reader )
-} catch {
-    Write-Warning $_.Exception
+$reader=(New-Object System.Xml.XmlNodeReader $xaml)
+try{
+    $Form=[Windows.Markup.XamlReader]::Load( $reader )
+}
+catch{
+    Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged or TextChanged properties in your textboxes (PowerShell cannot process them)"
     throw
 }
 
-# Create variable form control Name.
-# Variable will be named as 'var_<control name>'
+#===========================================================================
+# Load XAML Objects In PowerShell
+#===========================================================================
 
-$xaml.SelectNodes("//*[@Name]") | ForEach-Object {
-    #"trying item $($_.Name)"
-    try {
-        Set-Variable -Name "var_$($_.Name)" -Value $window.FindName($_.Name) -ErrorAction Stop
-    } catch {
-        throw
+$xaml.SelectNodes("//*[@Name]") | %{"trying item $($_.Name)";
+    try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop}
+    catch{throw}
     }
+
+Function Get-FormVariables{
+if ($global:ReadmeDisplay -ne $true){Write-host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow;$global:ReadmeDisplay=$true}
+write-host "Found the following interactable elements from our form" -ForegroundColor Cyan
+get-variable WPF*
 }
-Get-Variable var_*
+
+Get-FormVariables
 
 ####################################################################################################
 ###############################################home#################################################
@@ -94,55 +441,69 @@ Get-Variable var_*
 #Timer display
 $Timer=New-Object System.Windows.Forms.Timer
 $Timer_Tick={
-    $Var_DisplayRealTime.Content= Get-Date -Format "HH:mm:ss"
+    $WPFDisplayRealTime.Content= Get-Date -Format "HH:mm:ss"
     }
     $Timer.Enabled = $True
     $Timer.Interval = 1
     $Timer.add_Tick($Timer_Tick)
 
 #Date display
-$Var_DisplayRealDate.Content= Get-Date -Format dd-MM-yyyy
+$WPFDisplayRealDate.Content= Get-Date -Format dd-MM-yyyy
 ##END OF Displays
 
 #START ABOUT ME___________________________________________________________________________________________#
-$Var_Aboutme.Add_Click({
-Write-Host "Initiating About Me Window"
-# Location von der XAML Datei
-$xamlFile = $currentScriptDirectory + "\MultiTool\AboutMe.xaml"
+$WPFAboutme.Add_Click({
+#Your XAML goes here :)
+$inputXML = @"
+<Window x:Class="MultiTool.AboutMe"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiTool"
+        mc:Ignorable="d"
+        Title="AboutMe" Height="184" Width="200">
+    <Grid Background="#FF23272A">
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="74" Width="199" Foreground="#FFCECECE"><Run Text="Current Version: 1.00"/><LineBreak/><Run Text="Created by: Samuel Senn"/><LineBreak/><Run Text="Supported OS: Win 10 &amp; 11"/><LineBreak/><Run Text="©"/><Run Language="de-ch" Text="2023 "/></TextBlock>
+    </Grid>
+</Window>
+"@ 
 
-#Create about me window
-$inputXML = Get-Content $xamlFile -Raw
-$inputXML = $inputXML -replace 'mc:Ignorable="d"', '' -replace "x:N", 'N' -replace '^<Win.*', '<Window'
-[XML]$XAML = $inputXML
+$inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N' -replace '^<Win.*', '<Window'
+[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+[xml]$XAML = $inputXML
+#Read XAML
 
-#read of XAML
-$reader = (New-Object System.Xml.XmlNodeReader $xaml)
-try {
-    $window1 = [Windows.Markup.XamlReader]::Load( $reader )
-} catch {
-    Write-Warning $_.Exception
+$reader=(New-Object System.Xml.XmlNodeReader $xaml)
+try{
+    $Form=[Windows.Markup.XamlReader]::Load( $reader )
+}
+catch{
+    Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged or TextChanged properties in your textboxes (PowerShell cannot process them)"
     throw
 }
 
-# Create variable form control Name.
-# Variable will be named as 'var_<control name>'
+#===========================================================================
+# Load XAML Objects In PowerShell
+#===========================================================================
 
-$xaml.SelectNodes("//*[@Name]") | ForEach-Object {
-    #"trying item $($_.Name)"
-    try {
-        Set-Variable -Name "var_$($_.Name)" -Value $window1.FindName($_.Name) -ErrorAction Stop
-    } catch {
-        throw
+$xaml.SelectNodes("//*[@Name]") | %{"trying item $($_.Name)";
+    try {Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop}
+    catch{throw}
     }
+
+Function Get-FormVariables{
+if ($global:ReadmeDisplay -ne $true){Write-host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow;$global:ReadmeDisplay=$true}
+get-variable WPF*
 }
-Write-Host "About Me Window has been created"
-Get-Variable var_*
-$Null = $window1.ShowDialog()
+
+Get-FormVariables
+$Form.ShowDialog() | out-null
 })
 ##END ABOUT ME___________________________________________________________________________________________________#
 
 #Github Link button
-$Var_github.Add_Click({
+$WPFgithub.Add_Click({
 Start-Process "https://github.com/Geistica/Mutli-Tool"
 Write-Host "Github Link has been opened"
 })
@@ -150,12 +511,12 @@ Write-Host "Github Link has been opened"
 ####################################################################################################
 #########################################System Operations##########################################
 ####################################################################################################
-$Var_btn_shutdown.Add_Click({shutdown /s})
-$Var_btn_restart.Add_Click({Restart-Computer})
-$Var_btn_logout.Add_Click({logoff 1})
+$WPFbtn_shutdown.Add_Click({shutdown /s})
+$WPFbtn_restart.Add_Click({Restart-Computer})
+$WPFbtn_logout.Add_Click({logoff 1})
 
 #START OF CHANGE PASSWORD OF LOCAL USER SCRIPT___________________________________________________________________#
-$var_btn_password.Add_Click({
+$WPFbtn_password.Add_Click({
 Write-Host "button password change has been clicked"
 #Administrator Permissions check and warning
 $adminCheck = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
@@ -177,10 +538,10 @@ Write-Host "Script password changer has ended"
 ##END OF CHANGE PASSWORD OF LOCAL USER SCRIPT______________________________________________________________#
 
 #START OF THE MBR TO GPT CONVERTER SCRIPT__________________________________________________________________#
-$var_btn_mbr2gpt.Add_Click({
+$WPFbtn_mbr2gpt.Add_Click({
 Write-Host "button mbr2gpt has been clicked"
     #clear the result box
-    $var_console.Text = ""
+    $WPFconsole.Text = ""
 $DriveLetter = [Microsoft.VisualBasic.Interaction]::InputBox("Please Input the Drive you want to convert:", "Mbr2GPT Converter")
     mbr2gpt.exe /allowFullOS /convert /disk:$DriveLetter
     if ($DriveLetter -eq "") {
@@ -193,7 +554,7 @@ Write-Host "Script mbr2gpt has ended"
 ##END OF THE MBR TO GPT CONVERTER SCRIPT_____________________________________________________________________#
 
 #START OF THE WINDOWS UPDATE SCRIPT__________________________________________________________________________#
-$var_btn_winupdate.Add_Click({
+$WPFbtn_winupdate.Add_Click({
 Write-Host "button windows Update has been clicked"
 #Check if Module "Get-InstallModule" is installed
 $installedModules = Get-InstalledModule -Name "PSWindowsUpdate"
@@ -239,7 +600,7 @@ Write-Host "Script Windows Update has ended"
 ##END OF WINDOWS UPDATES SCRIPT______________________________________________________________________________#
 
 #START OF REMOVE EMPTY FOLDERS SCRIPT________________________________________________________________________#
-$var_btn_empty_folders.Add_Click({
+$WPFbtn_empty_folders.Add_Click({
 Write-Host "button empty folders has been clicked"
 $path = (New-Object -ComObject Shell.Application).BrowseForFolder(0, "Enter the path of the directory you want to scan for empty folders", 0, 0).self.path 
 $folders = Get-ChildItem $path -Directory
@@ -258,7 +619,7 @@ Write-Host "Script Empty Folders has ended"
 ##END OF REMOVE EMPTY FOLDERS SCRIPT_________________________________________________________________________#
 
 #START OF STATIC IP CREATOR SCRIPT___________________________________________________________________________#
-$var_btn_static_IP.Add_Click({
+$WPFbtn_static_IP.Add_Click({
 Write-Host "button static Ip has been clicked"
 $nic = Get-WmiObject -Class Win32_NetworkAdapterConfiguration -Filter "IPEnabled = 'True'"
 $IPAddress = $nic.IPAddress[0]
@@ -300,7 +661,7 @@ Write-Host "Script Static IP has ended"
 ##END OF STATIC IP CREATOR SCRIPT____________________________________________________________________________#
 
 #START OF THE SAFE BOOT SCRIPT_______________________________________________________________________________#
-$Var_btn_safeboot.Add_Click({
+$WPFbtn_safeboot.Add_Click({
 Write-Host "button safe boot has been clicked"
 $safeBootKey = "HKLM:\SYSTEM\CurrentControlSet\Control\SafeBoot\"
 
@@ -341,7 +702,7 @@ Write-Host "Script safe boot has ended"
 ##END OF THE SAFE BOOT SCRIPT________________________________________________________________________________#
 
 #START OF THE PC CLEAN UP SCRIPT_____________________________________________________________________________#
-$Var_btn_pcclean.Add_Click({
+$WPFbtn_pcclean.Add_Click({
 #Delete temp files
 Remove-Item -Path "$env:temp\*" -Force -Recurse
 
@@ -370,23 +731,23 @@ Clear-EventLog -LogName "System"
 #START OF THE DISPLAYS_______________________________________________________________________________________#
 #Ip Adress in ipv4
 $ip = Test-Connection -ComputerName (hostname) -Count 1 | Select -ExpandProperty IPV4Address
-$var_Testing.Text = $var_Testing.Text + "$ip"
+$WPFTesting.Text = $WPFTesting.Text + "$ip"
 
 #Display Computer Name
-$var_pcname.text = $env:COMPUTERNAME
+$WPFpcname.text = $env:COMPUTERNAME
 ##END OF DISPLAYS____________________________________________________________________________________________#
 
 #START OF THE DISKINFO SCRIPT________________________________________________________________________________#
-$var_btn_diskinfo.Add_Click( {
+$WPFbtn_diskinfo.Add_Click( {
 Write-Host "button diskinfo has been clicked"
        #clear the result box
-       $var_txtResults.Text = ""
-           if ($result = Get-FixedDisk -Computer $var_pcname.Text) {
+       $WPFtxtResults.Text = ""
+           if ($result = Get-FixedDisk -Computer $WPFpcname.Text) {
                foreach ($item in $result) {
-                   $var_txtResults.Text = $var_txtResults.Text + "Device ID: $($item.DeviceID)`n" 
-                   $var_txtResults.Text = $var_txtResults.Text + "Volume Name: $($item.VolumeName)`n"
-                   $var_txtResults.Text = $var_txtResults.Text + "Free Space: " + [Math]::Round(($item.FreeSpace/1GB), 2) + "GB`n"
-                   $var_txtResults.Text = $var_txtResults.Text + "Size: " + [Math]::Round(($item.Size/1GB), 2) + "GB"
+                   $WPFtxtResults.Text = $WPFtxtResults.Text + "Device ID: $($item.DeviceID)`n" 
+                   $WPFtxtResults.Text = $WPFtxtResults.Text + "Volume Name: $($item.VolumeName)`n"
+                   $WPFtxtResults.Text = $WPFtxtResults.Text + "Free Space: " + [Math]::Round(($item.FreeSpace/1GB), 2) + "GB`n"
+                   $WPFtxtResults.Text = $WPFtxtResults.Text + "Size: " + [Math]::Round(($item.Size/1GB), 2) + "GB"
                }
            }
            Write-Host "Script diskinfo has ended"    
@@ -394,23 +755,23 @@ Write-Host "button diskinfo has been clicked"
 ##END OF THE DISKINFO SCRIPT________________________________________________________________________________#
 
 #START OF THE DEVICE SPECIFICATION SCRIPT___________________________________________________________________#
-$var_btn_specs.Add_Click( {
+$WPFbtn_specs.Add_Click( {
 Write-Host "button specifications has been clicked"
     #clear the result box
-    $var_txtResults.Text = ""
-              $var_txtResults.Text = $var_txtResults.Text + "Operating System: $((Get-CimInstance -ClassName Win32_OperatingSystem).Caption)`n"
-              $var_txtResults.Text = $var_txtResults.Text + "CPU: $((Get-CimInstance -ClassName Win32_Processor).Name)`n"
-              $var_txtResults.Text = $var_txtResults.Text + "RAM: $((Get-CimInstance -ClassName Win32_ComputerSystem).TotalPhysicalMemory / 1GB) GB`n"
-              $var_txtResults.Text = $var_txtResults.Text + "GPU: $((Get-CimInstance -ClassName Win32_VideoController).Name)`n"
-              $var_txtResults.Text = $var_txtResults.Text + "Bios Vers: $((Get-CimInstance -ClassName Win32_BIOS).Name)`n"
-              $var_txtResults.Text = $var_txtResults.Text + "Win Vers detailed: $([System.Environment]::OSVersion.Version)`n"
-              $var_txtResults.Text = $var_txtResults.Text + "Win Vers: $(Get-ComputerInfo | select windowsversion)`n"
+    $WPFtxtResults.Text = ""
+              $WPFtxtResults.Text = $WPFtxtResults.Text + "Operating System: $((Get-CimInstance -ClassName Win32_OperatingSystem).Caption)`n"
+              $WPFtxtResults.Text = $WPFtxtResults.Text + "CPU: $((Get-CimInstance -ClassName Win32_Processor).Name)`n"
+              $WPFtxtResults.Text = $WPFtxtResults.Text + "RAM: $((Get-CimInstance -ClassName Win32_ComputerSystem).TotalPhysicalMemory / 1GB) GB`n"
+              $WPFtxtResults.Text = $WPFtxtResults.Text + "GPU: $((Get-CimInstance -ClassName Win32_VideoController).Name)`n"
+              $WPFtxtResults.Text = $WPFtxtResults.Text + "Bios Vers: $((Get-CimInstance -ClassName Win32_BIOS).Name)`n"
+              $WPFtxtResults.Text = $WPFtxtResults.Text + "Win Vers detailed: $([System.Environment]::OSVersion.Version)`n"
+              $WPFtxtResults.Text = $WPFtxtResults.Text + "Win Vers: $(Get-ComputerInfo | select windowsversion)`n"
               Write-Host "Script specifications has ended"   
             })
 ##END OF THE SPECIFICATION SCRIPT__________________________________________________________________________#
 
 #START OF THE BATTERY INFO SCRIPT__________________________________________________________________________#
-$var_btn_battery.Add_Click( {
+$WPFbtn_battery.Add_Click( {
 Write-Host "button battery info has been clicked"
 $saveLocation = (New-Object -ComObject Shell.Application).BrowseForFolder(0, "Select a location to save the file", 0, 0).self.path
 powercfg /batteryreport /output "$saveLocation\Battery-Info.html"
@@ -423,85 +784,85 @@ Write-Host "Script battery info has ended"
 ############################################Quick Access############################################
 ####################################################################################################
 #Start Task Manager
-$var_btn_taskmngr.Add_Click( {
+$WPFbtn_taskmngr.Add_Click( {
 Write-Host "Starting Task Manager" 
 Start-Process -FilePath "taskmgr.exe"
 })
 
 #Start Services
-$var_btn_services.Add_Click( {
+$WPFbtn_services.Add_Click( {
 Write-Host "Starting Services" 
 Start-Process -FilePath "services.msc"
 })
 
 #Start Control Panel
-$var_btn_services.Add_Click( {
+$WPFbtn_services.Add_Click( {
 Write-Host "Starting Control Panel" 
 Start-Process -FilePath "services.msc"
 })
 
 #Start Device Manager
-$var_btn_devmgmt.Add_Click( {
+$WPFbtn_devmgmt.Add_Click( {
 Write-Host "Starting Device Manager" 
 Start-Process -FilePath "devmgmt.msc"
 })
 
 #Start Defragment and optimize Drives
-$var_btn_defrag.Add_Click( {
+$WPFbtn_defrag.Add_Click( {
 Write-Host "Starting Defragment and optimize Drives" 
 Start-Process -FilePath "dfrgui.exe"
 })
 
 #Start Powershell
-$var_btn_powershell.Add_Click( {
+$WPFbtn_powershell.Add_Click( {
 Write-Host "Starting Powershell" 
 Start-Process -FilePath "powershell.exe"
 })
 
 #Start Command Panel
-$var_btn_cmd.Add_Click( {
+$WPFbtn_cmd.Add_Click( {
 Write-Host "Starting Command Panel" 
 Start-Process -FilePath "cmd.exe" -Verb RunAs
 })
 
 #Start Firewall
-$var_btn_firewall.Add_Click( {
+$WPFbtn_firewall.Add_Click( {
 Write-Host "Starting Firewall" 
 Start-Process -FilePath "wf.msc"
 })
 
 #Start Windows Settings
-$var_btn_winset.Add_Click( {
+$WPFbtn_winset.Add_Click( {
 Write-Host "Starting Windows Settings" 
 Start-Process -FilePath "ms-settings:"
 })
 
 #Start Registry Editor
-$var_btn_regedit.Add_Click( {
+$WPFbtn_regedit.Add_Click( {
 Write-Host "Starting Registry Editor" 
 Start-Process -FilePath "regedit.exe"
 })
 
 #Start System Configuration
-$var_btn_sysconfig.Add_Click( {
+$WPFbtn_sysconfig.Add_Click( {
 Write-Host "Starting System Configuration" 
 Start-Process -FilePath "msconfig.exe" -Verb RunAs
 })
 
 #Start Task Scheduler
-$var_btn_taskscheduler.Add_Click( {
+$WPFbtn_taskscheduler.Add_Click( {
 Write-Host "Starting Task Scheduler" 
 Start-Process -FilePath "taskschd.msc" -Verb RunAs
 })
 
 #Start Ressource Monitor
-$var_btn_resmon.Add_Click( {
+$WPFbtn_resmon.Add_Click( {
 Write-Host "Starting Ressource Monitor"
 Start-Process -FilePath "resmon.exe"
 })
 
 #Start Print Managment
-$var_btn_printmgmt.Add_Click( {
+$WPFbtn_printmgmt.Add_Click( {
 # Check if the Print Management Console is installed
 if (!(Test-Path "C:\Windows\System32\printmanagement.msc")) {
     # Show message box to user
@@ -514,7 +875,7 @@ Start-Process -FilePath "printmanagement.msc"
 })
 
 #Start Event Viewer
-$var_btn_eventview.Add_Click( {
+$WPFbtn_eventview.Add_Click( {
 Write-Host "Starting Event Viewer"
 Start-Process -FilePath "eventvwr.msc"
 })
@@ -523,5 +884,5 @@ Start-Process -FilePath "eventvwr.msc"
 # Display the debug console
 Show-DebugConsole
 #DO NOT TOUCH
-$Null = $window.ShowDialog()
+$Form.ShowDialog() | out-null
 ###################################################################################
