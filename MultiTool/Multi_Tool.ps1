@@ -464,7 +464,7 @@ $inputXML = @"
         mc:Ignorable="d"
         Title="AboutMe" Height="184" Width="200">
     <Grid Background="#FF23272A">
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="74" Width="199" Foreground="#FFCECECE"><Run Text="Current Version: 1.00"/><LineBreak/><Run Text="Created by: Samuel Senn"/><LineBreak/><Run Text="Supported OS: Win 10 &amp; 11"/><LineBreak/><Run Text="©"/><Run Language="de-ch" Text="2023 "/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="74" Width="199" Foreground="#FFCECECE"><Run Text="Current Version: 1.00"/><LineBreak/><Run Text="Created by: Samuel Senn"/><LineBreak/><Run Text="Supported OS: Win 10 &amp; 11"/><LineBreak/><Run Text="ï¿½"/><Run Language="de-ch" Text="2023 "/></TextBlock>
     </Grid>
 </Window>
 "@ 
@@ -472,7 +472,7 @@ $inputXML = @"
 $inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N' -replace '^<Win.*', '<Window'
 [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
 [xml]$XAML = $inputXML
-#Read XAML
+# Read XAML
 
 $reader=(New-Object System.Xml.XmlNodeReader $xaml)
 try{
@@ -502,8 +502,9 @@ $Form.ShowDialog() | out-null
 })
 ##END ABOUT ME___________________________________________________________________________________________________#
 
-#Github Link button
+# Github Link button
 $WPFgithub.Add_Click({
+# Open Github
 Start-Process "https://github.com/Geistica/Mutli-Tool"
 Write-Host "Github Link has been opened"
 })
@@ -511,20 +512,25 @@ Write-Host "Github Link has been opened"
 ####################################################################################################
 #########################################System Operations##########################################
 ####################################################################################################
+# Shutdown System
 $WPFbtn_shutdown.Add_Click({shutdown /s})
+# Restart Sytem
 $WPFbtn_restart.Add_Click({Restart-Computer})
+# Log out of current user
 $WPFbtn_logout.Add_Click({logoff 1})
 
 #START OF CHANGE PASSWORD OF LOCAL USER SCRIPT___________________________________________________________________#
 $WPFbtn_password.Add_Click({
 Write-Host "button password change has been clicked"
-#Administrator Permissions check and warning
+# Administrator Permissions check and warn if it isn't he isn't elevated
 $adminCheck = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 if (!$adminCheck) {
     [System.Windows.Forms.MessageBox]::Show("You need admin permissions to use this button.", "Admin permissions required", "OK", "Warning")
 }
 else {
+# Change the password
 $username = $env:username
+# Input Window
 $changepassword = [Microsoft.VisualBasic.Interaction]::InputBox("Please Input New Password for this user:", "Password Changer")
     net user $username $changepassword
     if ($changepassword -eq "") {
@@ -540,8 +546,9 @@ Write-Host "Script password changer has ended"
 #START OF THE MBR TO GPT CONVERTER SCRIPT__________________________________________________________________#
 $WPFbtn_mbr2gpt.Add_Click({
 Write-Host "button mbr2gpt has been clicked"
-    #clear the result box
+    # clear the result box
     $WPFconsole.Text = ""
+# Input Box
 $DriveLetter = [Microsoft.VisualBasic.Interaction]::InputBox("Please Input the Drive you want to convert:", "Mbr2GPT Converter")
     mbr2gpt.exe /allowFullOS /convert /disk:$DriveLetter
     if ($DriveLetter -eq "") {
@@ -556,13 +563,13 @@ Write-Host "Script mbr2gpt has ended"
 #START OF THE WINDOWS UPDATE SCRIPT__________________________________________________________________________#
 $WPFbtn_winupdate.Add_Click({
 Write-Host "button windows Update has been clicked"
-#Check if Module "Get-InstallModule" is installed
+# Check if Module "Get-InstallModule" is installed
 $installedModules = Get-InstalledModule -Name "PSWindowsUpdate"
 if ($installedModules.Count -eq 0) {
     [System.Windows.Forms.MessageBox]::Show("You need to install PSWindowsUpdate module before using this button. Please run 'Install-Module -Name PSWindowsUpdate -Force' in an elevated PowerShell prompt.", "Module not found", "OK", "Warning")
 }
 else {
-#Administrator Permissions check and warning
+# Administrator Permissions check and warning
 $adminCheck = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 if (!$adminCheck) {
@@ -572,24 +579,24 @@ else {
 # Check if updates are available
 $winupdates = Get-WindowsUpdate
 
-#Updates are Available
+# If Updates are Available
 if ($winupdates) {
     if ($winupdates.Count -eq 1) {
 $answer_winupdates = [System.Windows.Forms.MessageBox]::Show("There are updates available, do you want to download and install them?", "Updates Available", [System.Windows.Forms.MessageBoxButtons]::YesNo)
 }
-#Install updates
+# Install updates
 if ($answer_winupdates -eq [System.Windows.Forms.DialogResult]::Yes) {
     Write-Host "Updates will now be downloaded and installed."
     foreach ($update in $updates) {
     $update.KBArticleIDs | % { wusa.exe /quiet /norestart /kb:$_ }
-    #Restart
+    # Restart
     shutdown /r /t 0
-    #Do not install updates
+    # Do not install updates
 }} elseif ($answer_winupdates -eq [System.Windows.Forms.DialogResult]::No) {
     Write-Host "Updates will not be downloaded or installed."
  }
 }
-#No Updates
+# No Updates available
 else {
     Write-Host "There are currently no updates are available."
 }
@@ -602,6 +609,7 @@ Write-Host "Script Windows Update has ended"
 #START OF REMOVE EMPTY FOLDERS SCRIPT________________________________________________________________________#
 $WPFbtn_empty_folders.Add_Click({
 Write-Host "button empty folders has been clicked"
+# Input Path to directorz
 $path = (New-Object -ComObject Shell.Application).BrowseForFolder(0, "Enter the path of the directory you want to scan for empty folders", 0, 0).self.path 
 $folders = Get-ChildItem $path -Directory
 foreach ($folder in $folders) {
@@ -653,7 +661,7 @@ $DNSServer = [Microsoft.VisualBasic.Interaction]::InputBox("Enter the DNS server
  $nic.SetDNSServerSearchOrder($DNSServer)
  $nic.SetDynamicDNSRegistration("FALSE")
 }
-#No Static Ip
+# No Static Ip
 }else {[System.Windows.Forms.MessageBox]::Show("No Static Ip has been set", "Static IP Address")
 }
 Write-Host "Script Static IP has ended" 
@@ -663,6 +671,7 @@ Write-Host "Script Static IP has ended"
 #START OF THE SAFE BOOT SCRIPT_______________________________________________________________________________#
 $WPFbtn_safeboot.Add_Click({
 Write-Host "button safe boot has been clicked"
+# Set registry as a variable
 $safeBootKey = "HKLM:\SYSTEM\CurrentControlSet\Control\SafeBoot\"
 
 # Check current boot setting
@@ -703,21 +712,21 @@ Write-Host "Script safe boot has ended"
 
 #START OF THE PC CLEAN UP SCRIPT_____________________________________________________________________________#
 $WPFbtn_pcclean.Add_Click({
-#Delete temp files
+# Delete temp files
 Remove-Item -Path "$env:temp\*" -Force -Recurse
 
-#Empty recycle bin
+# Empty recycle bin
 $shell = New-Object -ComObject Shell.Application
 $recycleBin = $shell.Namespace(0xA)
 $recycleBin.Items() | %{$recycleBin.InvokeVerb("Delete")}
 
-#Delete Internet Explorer temp files
+# Delete Internet Explorer temp files
 Remove-Item -Path "$env:userprofile\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Force -Recurse
 
-#Remove unneeded Windows files
+# Remove unneeded Windows files
 Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/sagerun:1"
 
-#Clear Windows event logs
+# Clear Windows event logs
 Clear-EventLog -LogName "Application"
 Clear-EventLog -LogName "Security"
 Clear-EventLog -LogName "System"
@@ -729,18 +738,18 @@ Clear-EventLog -LogName "System"
 ####################################################################################################
 
 #START OF THE DISPLAYS_______________________________________________________________________________________#
-#Ip Adress in ipv4
+# Ip Adress in ipv4
 $ip = Test-Connection -ComputerName (hostname) -Count 1 | Select -ExpandProperty IPV4Address
 $WPFTesting.Text = $WPFTesting.Text + "$ip"
 
-#Display Computer Name
+# Display Computer Name
 $WPFpcname.text = $env:COMPUTERNAME
 ##END OF DISPLAYS____________________________________________________________________________________________#
 
 #START OF THE DISKINFO SCRIPT________________________________________________________________________________#
 $WPFbtn_diskinfo.Add_Click( {
 Write-Host "button diskinfo has been clicked"
-       #clear the result box
+       # clear the result box
        $WPFtxtResults.Text = ""
            if ($result = Get-FixedDisk -Computer $WPFpcname.Text) {
                foreach ($item in $result) {
@@ -757,7 +766,7 @@ Write-Host "button diskinfo has been clicked"
 #START OF THE DEVICE SPECIFICATION SCRIPT___________________________________________________________________#
 $WPFbtn_specs.Add_Click( {
 Write-Host "button specifications has been clicked"
-    #clear the result box
+    # clear the result box
     $WPFtxtResults.Text = ""
               $WPFtxtResults.Text = $WPFtxtResults.Text + "Operating System: $((Get-CimInstance -ClassName Win32_OperatingSystem).Caption)`n"
               $WPFtxtResults.Text = $WPFtxtResults.Text + "CPU: $((Get-CimInstance -ClassName Win32_Processor).Name)`n"
@@ -783,85 +792,85 @@ Write-Host "Script battery info has ended"
 ####################################################################################################
 ############################################Quick Access############################################
 ####################################################################################################
-#Start Task Manager
+# Start Task Manager
 $WPFbtn_taskmngr.Add_Click( {
 Write-Host "Starting Task Manager" 
 Start-Process -FilePath "taskmgr.exe"
 })
 
-#Start Services
+# Start Services
 $WPFbtn_services.Add_Click( {
 Write-Host "Starting Services" 
 Start-Process -FilePath "services.msc"
 })
 
-#Start Control Panel
+# Start Control Panel
 $WPFbtn_services.Add_Click( {
 Write-Host "Starting Control Panel" 
 Start-Process -FilePath "services.msc"
 })
 
-#Start Device Manager
+# Start Device Manager
 $WPFbtn_devmgmt.Add_Click( {
 Write-Host "Starting Device Manager" 
 Start-Process -FilePath "devmgmt.msc"
 })
 
-#Start Defragment and optimize Drives
+# Start Defragment and optimize Drives
 $WPFbtn_defrag.Add_Click( {
 Write-Host "Starting Defragment and optimize Drives" 
 Start-Process -FilePath "dfrgui.exe"
 })
 
-#Start Powershell
+# Start Powershell
 $WPFbtn_powershell.Add_Click( {
 Write-Host "Starting Powershell" 
 Start-Process -FilePath "powershell.exe"
 })
 
-#Start Command Panel
+# Start Command Panel
 $WPFbtn_cmd.Add_Click( {
 Write-Host "Starting Command Panel" 
 Start-Process -FilePath "cmd.exe" -Verb RunAs
 })
 
-#Start Firewall
+# Start Firewall
 $WPFbtn_firewall.Add_Click( {
 Write-Host "Starting Firewall" 
 Start-Process -FilePath "wf.msc"
 })
 
-#Start Windows Settings
+# Start Windows Settings
 $WPFbtn_winset.Add_Click( {
 Write-Host "Starting Windows Settings" 
 Start-Process -FilePath "ms-settings:"
 })
 
-#Start Registry Editor
+# Start Registry Editor
 $WPFbtn_regedit.Add_Click( {
 Write-Host "Starting Registry Editor" 
 Start-Process -FilePath "regedit.exe"
 })
 
-#Start System Configuration
+# Start System Configuration
 $WPFbtn_sysconfig.Add_Click( {
 Write-Host "Starting System Configuration" 
 Start-Process -FilePath "msconfig.exe" -Verb RunAs
 })
 
-#Start Task Scheduler
+# Start Task Scheduler
 $WPFbtn_taskscheduler.Add_Click( {
 Write-Host "Starting Task Scheduler" 
 Start-Process -FilePath "taskschd.msc" -Verb RunAs
 })
 
-#Start Ressource Monitor
+# Start Ressource Monitor
 $WPFbtn_resmon.Add_Click( {
 Write-Host "Starting Ressource Monitor"
 Start-Process -FilePath "resmon.exe"
 })
 
-#Start Print Managment
+# Start Print Managment
 $WPFbtn_printmgmt.Add_Click( {
 # Check if the Print Management Console is installed
 if (!(Test-Path "C:\Windows\System32\printmanagement.msc")) {
@@ -874,7 +883,7 @@ Start-Process -FilePath "printmanagement.msc"
 }
 })
 
-#Start Event Viewer
+# Start Event Viewer
 $WPFbtn_eventview.Add_Click( {
 Write-Host "Starting Event Viewer"
 Start-Process -FilePath "eventvwr.msc"
@@ -883,6 +892,6 @@ Start-Process -FilePath "eventvwr.msc"
 ###################################################################################
 # Display the debug console
 Show-DebugConsole
-#DO NOT TOUCH
+# DO NOT TOUCH
 $Form.ShowDialog() | out-null
 ###################################################################################
