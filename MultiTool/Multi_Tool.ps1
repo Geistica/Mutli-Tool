@@ -1,18 +1,15 @@
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName Microsoft.VisualBasic
 Add-Type -AssemblyName System.Windows.Forms
+
+
+#===========================================================================
+# Functions
+#===========================================================================
+
 # Declare a variable to store debug messages
 $debugMessages = @()
 
-#Choose between path variable if .ps1 or .exe 
-$fileExtension = [System.IO.Path]::GetExtension($MyInvocation.MyCommand.Name)
-if ($fileExtension -eq ".ps1") {
-    $currentScriptDirectory = Split-Path -Parent $((Get-Variable MyInvocation).Value.MyCommand.Path)
-} else {
-    $currentScriptDirectory = (Get-Location).Path
-}
-
-#Functions
 # Function to add a debug message to the debug console
 function Add-DebugMessage {
   param(
@@ -52,7 +49,7 @@ Function Get-FixedDisk {
    $DiskInfo
 }
 
-#Your XAML goes here :)
+#XAML File Main Window
 $inputXML = @"
 <Window x:Class="MultiTool.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -405,7 +402,7 @@ $inputXML = @"
 $inputXML = $inputXML -replace 'mc:Ignorable="d"','' -replace "x:N",'N' -replace '^<Win.*', '<Window'
 [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
 [xml]$XAML = $inputXML
-#Read XAML
+#Read the XAML code
 
 $reader=(New-Object System.Xml.XmlNodeReader $xaml)
 try{
@@ -433,9 +430,9 @@ get-variable WPF*
 
 Get-FormVariables
 
-####################################################################################################
+#===================================================================================================
 ###############################################home#################################################
-####################################################################################################
+#===================================================================================================
 
 #Start of Displays
 #Timer display
@@ -453,7 +450,7 @@ $WPFDisplayRealDate.Content= Get-Date -Format dd-MM-yyyy
 
 #START ABOUT ME___________________________________________________________________________________________#
 $WPFAboutme.Add_Click({
-#Your XAML goes here :)
+# Load the About Me Window
 $inputXML = @"
 <Window x:Class="MultiTool.AboutMe"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -509,9 +506,9 @@ Start-Process "https://github.com/Geistica/Mutli-Tool"
 Write-Host "Github Link has been opened"
 })
 
-####################################################################################################
+#===================================================================================================
 #########################################System Operations##########################################
-####################################################################################################
+#===================================================================================================
 # Shutdown System
 $WPFbtn_shutdown.Add_Click({shutdown /s})
 # Restart Sytem
@@ -609,7 +606,7 @@ Write-Host "Script Windows Update has ended"
 #START OF REMOVE EMPTY FOLDERS SCRIPT________________________________________________________________________#
 $WPFbtn_empty_folders.Add_Click({
 Write-Host "button empty folders has been clicked"
-# Input Path to directorz
+# Input Path to directory
 $path = (New-Object -ComObject Shell.Application).BrowseForFolder(0, "Enter the path of the directory you want to scan for empty folders", 0, 0).self.path 
 $folders = Get-ChildItem $path -Directory
 foreach ($folder in $folders) {
@@ -733,9 +730,9 @@ Clear-EventLog -LogName "System"
 })
 ##END OF THE PC CLEAN UP SCRIPT______________________________________________________________________________#
 
-####################################################################################################
+#===================================================================================================
 ########################################System Informations#########################################
-####################################################################################################
+#===================================================================================================
 
 #START OF THE DISPLAYS_______________________________________________________________________________________#
 # Ip Adress in ipv4
@@ -789,9 +786,9 @@ Write-Host "Script battery info has ended"
 })
 ##END OF THE BATTERY INFO SCRIPT__________________________________________________________________________#
 
-####################################################################################################
+#===================================================================================================
 ############################################Quick Access############################################
-####################################################################################################
+#===================================================================================================
 # Start Task Manager
 $WPFbtn_taskmngr.Add_Click( {
 Write-Host "Starting Task Manager" 
