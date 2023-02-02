@@ -1,4 +1,5 @@
 # Mutli-Tool created by Samuel Senn
+Information: This tool will be renamed to Mastertool after all upcoming features have been added to the script
 # Upcoming Features:
 	- Installer Window with options to install certain programs (for internal usage)
 	- Copy certain informations to clip board
