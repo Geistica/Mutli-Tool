@@ -5,6 +5,7 @@ Information: This tool will be renamed to Mastertool after all upcoming features
 	- Copy certain informations to clip board
 	- Edit Users and Groups
 	- Backup basic Files (Desktop, Downloads, Images, Documents and Videos)
+	- FFMPEG integration for options to delete tracks
 	
 # Features: 
 ## System Operations:
