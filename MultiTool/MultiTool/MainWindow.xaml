@@ -340,7 +340,59 @@
                     </Button>
                 </Grid>
             </TabItem>
+            <TabItem Header="Installer" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Rectangle HorizontalAlignment="Left" Height="21" Margin="60,303,0,0" VerticalAlignment="Top" Width="90" Fill="#FFA1B5FF" RadiusX="5" RadiusY="5">
+                        <Rectangle.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Rectangle.Stroke>
+                    </Rectangle>
+                    <CheckBox x:Name="checkbox_msteams" Content="Teams" HorizontalAlignment="Left" Margin="48,52,0,0" VerticalAlignment="Top" Height="20" Width="63" IsChecked="False"/>
+                    <Button x:Name="btn_start" Content="Start Installation" HorizontalAlignment="Left" Margin="60,304,0,0" VerticalAlignment="Top" ClickMode="Press">
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="User Editor" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+            </TabItem>
+            <TabItem Header="FFMPEG" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+            </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

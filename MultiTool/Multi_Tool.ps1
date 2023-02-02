@@ -393,8 +393,48 @@ $inputXML = @"
                     </Button>
                 </Grid>
             </TabItem>
+            <TabItem Header="Installer" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <CheckBox x:Name="checkbox_msteams" Content="Teams" HorizontalAlignment="Left" Margin="48,52,0,0" VerticalAlignment="Top" Height="20" Width="63" IsChecked="False"/>
+                    <Button x:Name="btn_start" Content="Start Installation" HorizontalAlignment="Left" Margin="60,304,0,0" VerticalAlignment="Top" ClickMode="Press"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="User Editor" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+            </TabItem>
+            <TabItem Header="FFMPEG" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF2C2F33"/>
+                            <GradientStop Color="#FF282B30" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+            </TabItem>
         </TabControl>
-
     </Grid>
 </Window>
 "@ 
@@ -885,6 +925,22 @@ $WPFbtn_eventview.Add_Click( {
 Write-Host "Starting Event Viewer"
 Start-Process -FilePath "eventvwr.msc"
 })
+
+#===================================================================================================
+##############################################Installer#############################################
+#===================================================================================================
+$WPFbtn_start.Add_Click( {
+if ($WPFcheckbox_msteams.IsChecked) {Start-Process -FilePath "D:\Downloads\MSTeamsSetup_c_l_.exe"}
+[System.Windows.MessageBox]::Show("The programs have been successfully installed", "Success", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
+})
+
+#===================================================================================================
+#############################################User Editor############################################
+#===================================================================================================
+
+#===================================================================================================
+###############################################FFMPEG###############################################
+#===================================================================================================
 
 ###################################################################################
 # Display the debug console
