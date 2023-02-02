@@ -1,5 +1,10 @@
 # Mutli-Tool created by Samuel Senn
-
+# Upcoming Features:
+	- Installer Window with options to install certain programs (for internal usage)
+	- Copy certain informations to clip board
+	- Edit Users and Groups
+	- Backup basic Files (Desktop, Downloads, Images, Documents and Videos)
+	
 # Features: 
 ## System Operations:
 
