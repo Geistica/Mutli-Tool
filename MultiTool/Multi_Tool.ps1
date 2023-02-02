@@ -1,7 +1,7 @@
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName Microsoft.VisualBasic
 Add-Type -AssemblyName System.Windows.Forms
-
+Import-Module PSWindowsUpdate
 
 #===========================================================================
 # Functions
@@ -585,7 +585,7 @@ $answer_winupdates = [System.Windows.Forms.MessageBox]::Show("There are updates 
 if ($answer_winupdates -eq [System.Windows.Forms.DialogResult]::Yes) {
     Write-Host "Updates will now be downloaded and installed."
     foreach ($update in $updates) {
-    $update.KBArticleIDs | % { wusa.exe /quiet /norestart /kb:$_ }
+    $update.KBArticleIDs | % { wusa.exe /quiet /norestart /kb:$_ }  
     # Restart
     shutdown /r /t 0
     # Do not install updates
@@ -597,7 +597,7 @@ if ($answer_winupdates -eq [System.Windows.Forms.DialogResult]::Yes) {
 else {
     Write-Host "There are currently no updates are available."
 }
-Write-Host "Script Windows Update has ended"   
+      
 }
 }
 })
