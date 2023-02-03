@@ -365,6 +365,8 @@
                             <SolidColorBrush Color="#FF707070" Opacity="0"/>
                         </Button.BorderBrush>
                     </Button>
+                    <CheckBox x:Name="checkbox_globalprotect" Content="Global Protect" HorizontalAlignment="Left" Margin="48,77,0,0" VerticalAlignment="Top" Height="20" Width="102" IsChecked="False"/>
+                    <CheckBox x:Name="checkbox_onedrive" Content="Onedrive" HorizontalAlignment="Left" Margin="48,102,0,0" VerticalAlignment="Top" Height="20" Width="102" IsChecked="False"/>
                 </Grid>
             </TabItem>
             <TabItem Header="User Editor" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
@@ -378,6 +380,7 @@
                             <GradientStop Color="#FF282B30" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
+                    <Button x:Name="btn_printer" Content="Printer" HorizontalAlignment="Left" Margin="80,27,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="FFMPEG" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">

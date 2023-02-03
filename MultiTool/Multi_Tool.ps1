@@ -404,8 +404,22 @@ $inputXML = @"
                             <GradientStop Color="#FF282B30" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
+                    <Rectangle HorizontalAlignment="Left" Height="21" Margin="60,303,0,0" VerticalAlignment="Top" Width="90" Fill="#FFA1B5FF" RadiusX="5" RadiusY="5">
+                        <Rectangle.Stroke>
+                            <SolidColorBrush Color="Black" Opacity="0"/>
+                        </Rectangle.Stroke>
+                    </Rectangle>
                     <CheckBox x:Name="checkbox_msteams" Content="Teams" HorizontalAlignment="Left" Margin="48,52,0,0" VerticalAlignment="Top" Height="20" Width="63" IsChecked="False"/>
-                    <Button x:Name="btn_start" Content="Start Installation" HorizontalAlignment="Left" Margin="60,304,0,0" VerticalAlignment="Top" ClickMode="Press"/>
+                    <Button x:Name="btn_start" Content="Start Installation" HorizontalAlignment="Left" Margin="60,304,0,0" VerticalAlignment="Top" ClickMode="Press">
+                        <Button.Background>
+                            <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                        </Button.Background>
+                        <Button.BorderBrush>
+                            <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                        </Button.BorderBrush>
+                    </Button>
+                    <CheckBox x:Name="checkbox_globalprotect" Content="Global Protect" HorizontalAlignment="Left" Margin="48,77,0,0" VerticalAlignment="Top" Height="20" Width="102" IsChecked="False"/>
+                    <CheckBox x:Name="checkbox_onedrive" Content="Onedrive" HorizontalAlignment="Left" Margin="48,102,0,0" VerticalAlignment="Top" Height="20" Width="102" IsChecked="False"/>
                 </Grid>
             </TabItem>
             <TabItem Header="User Editor" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
@@ -419,6 +433,7 @@ $inputXML = @"
                             <GradientStop Color="#FF282B30" Offset="1"/>
                         </LinearGradientBrush>
                     </Grid.Background>
+                    <Button x:Name="btn_printer" Content="Printer" HorizontalAlignment="Left" Margin="80,27,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="FFMPEG" Margin="-2,-2,-2,2" Height="20" BorderBrush="#FF424549" Background="#FF2C2F33" Foreground="#FF747272">
@@ -930,14 +945,31 @@ Start-Process -FilePath "eventvwr.msc"
 ##############################################Installer#############################################
 #===================================================================================================
 $WPFbtn_start.Add_Click( {
-if ($WPFcheckbox_msteams.IsChecked) {Start-Process -FilePath "D:\Downloads\MSTeamsSetup_c_l_.exe"}
+if ($WPFcheckbox_msteams.IsChecked) {Start-Process -FilePath "W:\O365\Teams_windows_x64.exe"}
+if ($WPFcheckbox_globalprotect.IsChecked) {Start-Process -FilePath "W:\GlobalProtect\install.vbs"}
+if ($WPFcheckbox_onedrive.IsChecked) {Start-Process -FilePath "W:\O365\OneDriveSetup.exe"}
 [System.Windows.MessageBox]::Show("The programs have been successfully installed", "Success", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
 })
 
 #===================================================================================================
 #############################################User Editor############################################
 #===================================================================================================
+$WPFbtn_printer.Add_Click( {
+$printerName = Read-Host "Enter the desired name for the printer"
+$printerIP = Read-Host "Enter the IP address of the printer"
 
+$driver = (Get-WmiObject -Class Win32_PrinterDriver -Filter "Name LIKE '%Postscript%'")
+$driverName = $driver.Name
+$driverPath = $driver.Path
+
+$port = New-Object -ComObject WScript.Network
+$port.AddWindowsPrinterConnection("\\$printerIP")
+$port.SetDefaultPrinter("$printerName on $printerIP")
+
+$printer = Get-WmiObject -Class Win32_Printer -Filter "Name='$printerName on $printerIP'"
+$printer.SetDefaultPrinter()
+$printer.Put()
+})
 #===================================================================================================
 ###############################################FFMPEG###############################################
 #===================================================================================================
